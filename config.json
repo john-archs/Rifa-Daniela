@@ -8,18 +8,18 @@
     "Fralda XG"
   ],
   "configCartela": {
-    "quantidade": 100,
+    "quantidade": 150,
     "colunas": 10,
-    "linhas": 10,
-    "inicioX": 300,
-    "inicioY": 1146,
-    "espacoX": 135,
-    "espacoY": 130,
-    "fonte": 60,
-    "cor": "#FF4F9D",
+    "linhas": 15,
+    "inicioX": 55,
+    "inicioY": 470,
+    "espacoX": 54,
+    "espacoY": 50,
+    "fonte": 25,
+    "cor": "#ff4f9d",
     "corRaio": "#FF4F9D",
     "corNumeroRaio": "#FFFFFF",
-    "raio": 51,
+    "raio": 25,
     "emojiVendido": "💖"
   },
   "historicoCores": [
@@ -35,5 +35,6 @@
     "cards": "#FFFFFF",
     "texto": "#6A2CA0"
   },
-  "imagemRifa": "https://raw.githubusercontent.com/john-archs/Rifa-Daniela/main/Rifa.jpg"
+  "imagemRifa": "https://raw.githubusercontent.com/john-archs/Rifa-Daniela/main/Rifa.jpg",
+  "qrPix": "https://raw.githubusercontent.com/john-archs/Rifa-Daniela/main/qrcode.png"
 }
