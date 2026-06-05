@@ -1,0 +1,39 @@
+{
+  "vendas": [],
+  "numerosMarcados": [],
+  "pagamentos": [
+    "Fralda P",
+    "Fralda M",
+    "Fralda G",
+    "Fralda XG"
+  ],
+  "configCartela": {
+    "quantidade": 100,
+    "colunas": 10,
+    "linhas": 10,
+    "inicioX": 300,
+    "inicioY": 1146,
+    "espacoX": 135,
+    "espacoY": 130,
+    "fonte": 60,
+    "cor": "#FF4F9D",
+    "corRaio": "#FF4F9D",
+    "corNumeroRaio": "#FFFFFF",
+    "raio": 51,
+    "emojiVendido": "💖"
+  },
+  "historicoCores": [
+    "#FF4F9D",
+    "#B56AD9",
+    "#FFB6D9"
+  ],
+  "tema": {
+    "botoes": "#FF4F9D",
+    "botaoAtual": "#B56AD9",
+    "botoesAcao": "#FF4F9D",
+    "fundo": "#FFF7FA",
+    "cards": "#FFFFFF",
+    "texto": "#6A2CA0"
+  },
+  "imagemRifa": "https://raw.githubusercontent.com/john-archs/Rifa-Daniela/main/Rifa.jpg"
+}
