@@ -353,6 +353,15 @@
 </head>
 
 <body>
+  <script>
+window.addEventListener('load', function() {
+    if (!sessionStorage.getItem('reload_once')) {
+        sessionStorage.setItem('reload_once', 'true');
+        location.reload();
+    }
+});
+</script>
+
 
 <div class="tabs">
     <button class="tab-btn active"
@@ -2331,11 +2340,7 @@ async function carregarArquivosIniciais(){
         }
 
         // IMAGEM
-        localStorage.setItem(
-            'imagemRifa',
-            urlImagem
-        );
-        imagem.src = urlImagem;
+        
 
         // QR PIX
         localStorage.setItem(
@@ -2886,4 +2891,4 @@ function copiarPix(){
         </div>
     </div>
 </body>
-      </html>
+   </html>
