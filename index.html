@@ -1,0 +1,2889 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Rifa Daniela</title>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body{
+        background:#FFF7FA;
+        padding:20px;
+        color:#2d2d2d;
+    }
+
+    .tabs{
+        display:flex;
+        gap:10px;
+        margin-bottom:20px;
+    }
+
+    .tab-btn{
+        border:none;
+        background:#FF4F9D;
+        color:white;
+        padding:10px 16px;
+        border-radius:12px;
+        cursor:pointer;
+        font-size:16px;
+        font-weight:bold;
+    }
+
+    .tab-btn.active{
+        background:#B56AD9;
+    }
+
+    .tab-content{
+        display:none;
+    }
+
+    .tab-content.active{
+        display:block;
+    }
+
+    .formulario{
+        background:white;
+        padding:20px;
+        border-radius:20px;
+        box-shadow:0 0 10px rgba(0,0,0,0.1);
+        margin-bottom:20px;
+    }
+
+    .formulario h2{
+        margin-bottom:15px;
+        color:#2d2d2d;
+    }
+
+    .grid-form{
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+        gap:15px;
+    }
+    input[type="color"]{
+        width:38px !important;
+        height:38px !important;
+        padding:0 !important;
+        border:none !important;
+        border-radius:14px;
+        overflow:hidden;
+        cursor:pointer;
+        background:none;
+    }
+    
+    input[type="color"]::-webkit-color-swatch-wrapper{
+        padding:0;
+    }
+    
+    input[type="color"]::-webkit-color-swatch{
+        border:none;
+        border-radius:14px;
+    }
+    
+    input[type="color"]::-moz-color-swatch{
+        border:none;
+        border-radius:14px;
+    }
+    input, select{
+        width:100%;
+        padding:12px;
+        border-radius:10px;
+        border:2px solid #FFB6D9;
+        outline:none;
+        font-size:15px;
+    }
+
+    button.concluir{
+        margin-top:20px;
+        width:100%;
+        padding:15px;
+        background:#FF4F9D;
+        color:white;
+        border:none;
+        border-radius:15px;
+        font-size:18px;
+        font-weight:bold;
+        cursor:pointer;
+        transition:0.2s;
+    }
+
+    button.concluir:hover{
+        background:#B56AD9;
+    }
+
+    .cartela{
+        display:grid;
+        grid-template-columns:repeat(10,1fr);
+        gap:8px;
+    }
+
+    .numero{
+        background:white;
+        border:2px solid #2d2d2d;
+        border-radius:12px;
+        height:55px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        cursor:pointer;
+        font-weight:bold;
+        transition:0.2s;
+        position:relative;
+    }
+
+    .numero:hover{
+        transform:scale(1.05);
+    }
+
+    .numero.selecionado{
+        border:3px solid #e6a623;
+    }
+
+    .numero.vendido{
+        background:#FF4F9D;
+        color:white;
+        border:none;
+    }
+
+    .numero.vendido::after{
+        content:'';
+        width:40px;
+        height:40px;
+        background:#B56AD9;
+        border-radius:50%;
+        position:absolute;
+        z-index:0;
+    }
+
+    .numero.vendido span{
+        z-index:2;
+    }
+
+    .resumo{
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+        gap:15px;
+        margin-bottom:20px;
+    }
+
+    .card{
+        background:white;
+        padding:20px;
+        border-radius:15px;
+        text-align:center;
+        box-shadow:0 0 10px rgba(0,0,0,0.08);
+    }
+
+    .card h3{
+        color:#2d2d2d;
+        margin-bottom:10px;
+    }
+
+    table{
+        width:100%;
+        border-collapse:collapse;
+        background:white;
+        border-radius:20px;
+        overflow:hidden;
+        box-shadow:0 0 10px rgba(0,0,0,0.08);
+    }
+
+    th{
+        background:#FF4F9D;
+        color:white;
+        padding:15px;
+    }
+
+    td{
+        padding:12px;
+        text-align:center;
+        border-bottom:1px solid #f2d7e8;
+    }
+.canvas-container{
+    width:100%;
+    overflow:auto;
+    background:white;
+    border-radius:20px;
+    padding:10px;
+    margin-top:20px;
+    box-shadow:0 0 10px rgba(0,0,0,0.08);
+}
+#painelAjuste .linha-ajuste input{
+    width:100px !important;
+    min-width:100px !important;
+}
+.linha-ajuste{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:12px;
+}
+
+.linha-ajuste input{
+    width:auto;
+    min-width:auto;
+    padding:8px 10px;
+    font-size:18px;
+    text-align:center;
+    border-radius:12px;
+}
+
+.linha-ajuste label{
+    font-size:18px;
+    font-weight:bold;
+    color:#6A2CA0;
+}
+#inputImagemRifa{
+    font-size:0;
+    border:none;
+    background:none;
+    width:auto;
+    padding:0;
+}
+
+#inputImagemRifa::file-selector-button{
+    background:#ffffff;
+    border:2px solid #FFB6D9;
+    color:#6A2CA0;
+    padding:12px 18px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:bold;
+}
+
+#blocoQrPix{
+    text-align:center;
+}
+
+#inputQrPix{
+    font-size:0;
+    border:none;
+    background:none;
+    width:auto;
+    padding:0;
+    display:inline-block;
+}
+
+#inputQrPix::file-selector-button{
+    background:#ffffff;
+    border:2px solid #FFB6D9;
+    color:#6A2CA0;
+    padding:12px 18px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:bold;
+}
+
+#rifaCanvas{
+    width:100%;
+    height:auto;
+    display:block;
+    border-radius:20px;
+}
+#blocoImagemRifa{
+    text-align:center;
+}
+.popup-pix{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.65);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+}
+
+.popup-conteudo{
+    background:#FFF7FA;
+    width:90%;
+    max-width:420px;
+    border-radius:28px;
+    padding:30px;
+    text-align:center;
+    position:relative;
+}
+
+.popup-conteudo h2{
+    color:#2d2d2d;
+    margin-bottom:20px;
+}
+
+.fechar-popup{
+    position:absolute;
+    top:15px;
+    right:18px;
+    font-size:24px;
+    cursor:pointer;
+}
+
+.qr-pix{
+    width:230px;
+    border-radius:20px;
+    margin:20px 0;
+}
+
+.info-pix{
+    font-size:18px;
+    margin:10px 0;
+    color:#2d2d2d;
+    font-weight:bold;
+    word-break:break-word;
+}
+
+.btn-copiar{
+    margin-top:20px;
+    background:#FF4F9D;
+    color:white;
+    border:none;
+    padding:14px 20px;
+    border-radius:16px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="tabs">
+    <button class="tab-btn active"
+        onclick="abrirAba('rifa')">
+        RIFA
+    </button>
+    <button class="tab-btn"
+        onclick="abrirAba('vendas')">
+        VENDAS
+    </button>
+    <button class="tab-btn"
+        onclick="abrirAba('sorteio')">
+        SORTEIO
+    </button>
+    <button class="tab-btn"
+        onclick="abrirAba('config')">
+        ⚙️
+    </button>
+    
+</div>
+
+<!-- ABA RIFA -->
+<div id="rifa" class="tab-content active">
+
+    <div class="formulario">
+        <h2>Registrar Compra</h2>
+
+        <div class="grid-form">
+
+            <div>
+                <label>Nome</label>
+                <input type="text" id="nome">
+            </div>
+
+            <div>
+                <label>Contato</label>
+                <input
+                type="text"
+                id="contato"
+                placeholder="(84) 91234-5678"
+                inputmode="numeric"
+                maxlength="15"
+                oninput="formatarWhatsApp(this)">
+            </div>
+
+            <div>
+                <label>Número(s)</label>
+                <input
+                type="text"
+                id="numeros"
+                inputmode="numeric"
+                placeholder="Ex: 5,12,25"
+                oninput="formatarNumeros(this)"
+                >
+            </div>
+
+            <div>
+                <label>Pagamento</label>
+                <select id="pagamento">
+                    <option value="R$30">R$30</option>
+                    <option value="Fralda P">Fralda P</option>
+                    <option value="Fralda M">Fralda M</option>
+                    <option value="Fralda G">Fralda G</option>
+                    <option value="Fralda XG">Fralda XG</option>
+                </select>
+            </div>
+
+        </div>
+
+        <button class="concluir" onclick="concluirCompra()">
+            CONCLUIR
+        </button>
+    </div>
+
+<!-- PAINEL AJUSTES -->
+<div
+    id="painelAjuste"
+    style="
+        display:none;
+        background:white;
+        padding:20px;
+        border-radius:20px;
+        margin-bottom:20px;
+        box-shadow:0 0 10px rgba(0,0,0,0.08);
+    "
+>
+
+<h2 style="margin-bottom:15px;">
+⚙️ Ajuste da Cartela
+</h2>
+
+<div class="grid-form">
+
+     <div class="linha-ajuste">
+        <input
+            type="number"
+            id="ajQuantidade"
+            oninput="atualizarAjusteTempoReal()"
+        >
+        <label>Quantidade</label>
+    </div>
+
+    <div class="linha-ajuste">
+        <input
+            type="number"
+            id="ajColunas"
+            oninput="atualizarAjusteTempoReal()"
+        >
+        <label>Colunas</label>
+    </div>
+    
+    <div class="linha-ajuste">
+        <input
+            type="number"
+            id="ajLinhas"
+            oninput="atualizarAjusteTempoReal()"
+        >
+        <label>Linhas</label>
+    </div>
+    
+    <div class="linha-ajuste">
+      <input
+        type="number"
+        id="ajX"
+        oninput="atualizarAjusteTempoReal()"
+      >
+      <label>Posição X</label>
+    </div>
+
+    <div class="linha-ajuste">
+        <input
+            type="number"
+            id="ajY"
+            oninput="atualizarAjusteTempoReal()"
+        >
+        <label>Posição Y</label>
+    </div>
+
+    <div class="linha-ajuste">
+        <input
+            type="number"
+            id="ajEspX"
+            oninput="atualizarAjusteTempoReal()"
+        >
+        <label>Espaço Horizontal</label>
+    </div>
+
+    <div class="linha-ajuste">
+        <input
+            type="number"
+            id="ajEspY"
+            oninput="atualizarAjusteTempoReal()"
+        >
+        <label>Espaço Vertical</label>
+    </div>
+
+    <div class="linha-ajuste">
+        <input
+            type="number"
+            id="ajFonte"
+            oninput="atualizarAjusteTempoReal()"
+        >
+        <label>Tamanho Fonte</label>
+    </div>
+
+    <div class="linha-ajuste">
+        <input
+            type="number"
+            id="ajRaio"
+            oninput="atualizarAjusteTempoReal()"
+        >
+        <label>Raio Vendidos</label>
+    </div>
+    
+    <div class="linha-ajuste">
+    
+        <input
+            type="text"
+            id="ajEmoji"
+            maxlength="2"
+            oninput="atualizarAjusteTempoReal()"
+        >
+        <label>Emoji Vendido</label>
+    </div>
+
+    <div class="linha-ajuste">
+        <input
+            type="color"
+            id="ajCor"
+            oninput="alterarCorTempoReal('cor', this.value)"
+        >
+        <label>Cor</label>
+    </div>
+
+</div>
+
+<button
+    class="concluir"
+    onclick="salvarAjustesCartela()"
+>
+SALVAR AJUSTES
+</button>
+
+</div>
+   <div class="canvas-container">
+    <canvas id="rifaCanvas"></canvas>
+</div>
+
+<button class="concluir" onclick="baixarImagem()">
+    BAIXAR IMAGEM
+</button>
+<button
+    class="concluir"
+    onclick="abrirPix()"
+>
+    PAGAR COM PIX
+</button>
+
+</div>
+
+<!-- ABA VENDAS -->
+<div id="vendas" class="tab-content">
+
+<div class="resumo" id="resumoCards"></div>
+
+<div style="margin-bottom:15px; text-align:right;">
+
+    <button
+        onclick="limparVendas()"
+        style="
+            background:#ff4d4d;
+            color:white;
+            border:none;
+            padding:12px 18px;
+            border-radius:12px;
+            font-size:16px;
+            font-weight:bold;
+            cursor:pointer;
+        "
+    >
+        🗑️ Limpar Vendas
+    </button>
+</div>
+
+    <table>
+       <thead>
+            <tr>
+        <th>Data</th>
+        <th>Comprador</th>
+        <th>Números</th>
+        <th>Contato</th>
+        <th>Pagamento</th>
+        <th>Total</th>
+        <th>Ações</th>
+            </tr>
+       </thead>
+
+        <tbody id="historico"></tbody>
+    </table>
+</div>
+<!-- ABA SORTEIO -->
+<div id="sorteio" class="tab-content">
+
+    <div class="formulario">
+        <button class="concluir"
+            onclick="sortearNumero()">
+            SORTEAR
+        </button>
+
+        <div id="animacaoSorteio"
+            style="
+                display:none;
+                text-align:center;
+                font-size:120px;
+                font-weight:bold;
+                color:#FF4F9D;
+                margin:30px 0;
+            ">
+        </div>
+
+        <div id="resultadoSorteio"
+            style="
+                text-align:center;
+                font-size:35px;
+                font-weight:bold;
+                color:#B56AD9;
+                margin-top:20px;
+            ">
+        </div>
+
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+              
+                <th>Número</th>
+                <th>Comprador</th>
+                
+            </tr>
+        </thead>
+        <tbody id="listaSorteio"></tbody>
+    </table>
+        </div>
+<!-- ABA CONFIG -->
+<div id="config" class="tab-content">
+
+    <div class="formulario">
+
+        <h2>Configurações</h2>
+        <!-- IMAGEM DA RIFA -->
+          <div
+              id="blocoImagemRifa"
+              style="
+                  margin-bottom:25px;
+                  padding:18px;
+                  border:2px solid #FFB6D9;
+                  border-radius:18px;
+              "
+          >
+            <h3     style="         margin-bottom:15px;         text-align:center;     " >
+                Imagem da Rifa
+            </h3>
+        
+            <input
+                type="file"
+                id="inputImagemRifa"
+                accept=".png,.jpg,.jpeg"
+                onchange="carregarImagemRifa(event)"
+                style="margin-bottom:6px;"
+            >
+        
+            <div
+                id="statusImagemRifa"
+                style="
+                    margin-top:1px;
+                    font-weight:bold;
+                    text-align:center;
+                    color:#777;
+                "
+            >
+                Nenhuma imagem selecionada
+            </div>
+        </div>
+          <!-- QR CODE PIX -->
+        <div
+            id="blocoQrPix"
+            style="
+                margin-bottom:2px;
+                padding:18px;
+                border:2px solid #FFB6D9;
+                border-radius:18px;
+            "
+        >
+        
+            <h3
+                style="
+                    margin-bottom:15px;
+                    text-align:center;
+                "
+            >
+                QR Code Pix
+            </h3>
+        
+            <input
+                type="file"
+                id="inputQrPix"
+                accept=".png,.jpg,.jpeg"
+                onchange="carregarQrPix(event)"
+            >
+        
+            <div
+                id="statusQrPix"
+                style="
+                    margin-top:6px;
+                    font-weight:bold;
+                    text-align:center;
+                    color:#777;
+                "
+            >
+                Nenhum QR Code selecionado
+            </div>
+        
+        </div>
+                <!-- BACKUPS -->
+              <div style="margin-top:0px; margin-bottom:8px;">
+                  <button
+                      onclick="exportarConfiguracoes()"
+                      style="
+                          width:100%;
+                          padding:14px;
+                          margin-bottom:0;
+                          border:none;
+                          border-radius:12px;
+                          font-size:18px;
+                          font-weight:bold;
+                          background:#ffffff;
+                          color:inherit;
+                      "
+                  >
+                      ⬇️ Exportar configurações
+                  </button>
+              
+                  <label
+                      style="
+                          display:block;
+                          width:100%;
+                          padding:14px;
+                          border-radius:12px;
+                          font-size:18px;
+                          font-weight:bold;
+                          background:#ffffff;
+                          color:inherit;
+                          text-align:center;
+                          box-sizing:border-box;
+                      "
+                  >
+                      ⬆️ Importar configurações
+              
+                      <input
+                          type="file"
+                          accept=".json"
+                          onchange="importarConfiguracoes(event)"
+                          style="display:none;"
+                      >
+                  </label>
+              </div>
+        <!-- AJUSTE CARTELA -->
+        <div style="margin-bottom:20px;">
+
+            <div class="linha-ajuste">
+
+                <input
+                    type="checkbox"
+                    id="toggleAjuste"
+                    onchange="toggleModoAjuste(this)"
+                    style="
+                        width:22px;
+                        height:22px;
+                        accent-color:#d66bc5;
+                    "
+                >
+
+                <label for="toggleAjuste">
+                    Ativar ajustes da cartela
+                </label>
+            </div>
+        </div>
+
+        <!-- ALTERAR CORES -->
+        <div style="margin-bottom:20px;">
+
+            <div class="linha-ajuste">
+
+                <input
+                    type="checkbox"
+                    id="toggleCores"
+                    onchange="toggleCores(this)"
+                    style="
+                        width:22px;
+                        height:22px;
+                        accent-color:#d66bc5;
+                    "
+                >
+
+                <label for="toggleCores">
+                    Alterar cores
+                </label>
+
+            </div>
+
+            <div
+                id="painelCores"
+                style="
+                    display:none;
+                    margin-top:15px;
+                    padding:15px;
+                    border:2px solid #FFB6D9;
+                    border-radius:15px;
+                "
+            >
+
+                <div class="linha-ajuste">
+
+                    <input
+                        type="color"
+                        id="ajCor"
+                        oninput="alterarCorTempoReal()"
+                    >
+                    <label>Cor dos números</label>
+                </div>
+                
+                <div class="linha-ajuste">
+                    <input
+                        type="color"
+                        id="corRaio"
+                        oninput="alterarCorTempoReal('corRaio', this.value)"
+                    >
+                    <label>Cor do raio</label>
+                </div>
+
+                <div class="linha-ajuste">
+                    <input
+                        type="color"
+                        id="corNumeroRaio"
+                        oninput="alterarCorTempoReal('corNumeroRaio', this.value)"
+                    >
+                    <label>Cor do número do raio</label>
+                </div>
+                
+                <div class="linha-ajuste">
+                    <input
+                        type="color"
+                        id="corBotoes"
+                        oninput="alterarTemaTempoReal()"
+                    >
+                    <label>Cor dos botões</label>
+                </div>
+                
+                <div class="linha-ajuste">
+                    <input
+                        type="color"
+                        id="corBotaoAtual"
+                        oninput="alterarTemaTempoReal()"
+                    >
+                    <label>Cor do botão atual</label>
+                </div>
+                
+                <div class="linha-ajuste">
+                    <input
+                        type="color"
+                        id="corBotoesAcao"
+                        oninput="alterarTemaTempoReal()"
+                    >
+                    <label>Cor botões de ação</label>
+                </div>
+                
+                <div class="linha-ajuste">
+                    <input
+                        type="color"
+                        id="corFundo"
+                        oninput="alterarTemaTempoReal()"
+                    >
+                    <label>Cor de fundo</label>
+                </div>
+                
+                <div class="linha-ajuste">
+                    <input
+                        type="color"
+                        id="corCards"
+                        oninput="alterarTemaTempoReal()"
+                    >
+                    <label>Cor dos cards</label>
+                </div>
+                
+                <div class="linha-ajuste">
+                    <input
+                        type="color"
+                        id="corTexto"
+                        oninput="alterarTemaTempoReal()"
+                    >
+                    <label>Cor dos textos</label>
+                </div>
+
+                <div id="historicoCores"
+                    style="
+                        display:flex;
+                        gap:10px;
+                        margin-top:15px;
+                        flex-wrap:wrap;
+                    ">
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGAMENTOS -->
+        <div style="margin-bottom:20px;">
+
+            <div class="linha-ajuste">
+
+                <input
+                    type="checkbox"
+                    id="togglePagamentos"
+                    onchange="togglePagamentos(this)"
+                    style="
+                        width:22px;
+                        height:22px;
+                        accent-color:#d66bc5;
+                    "
+                >
+
+                <label for="togglePagamentos">
+                    Alterar lista de pagamentos
+                </label>
+
+            </div>
+
+            <div
+                id="painelPagamentos"
+                style="
+                    display:none;
+                    margin-top:15px;
+                "
+            >
+
+                <p style="margin-bottom:15px;">
+                    Um item por linha
+                </p>
+
+                <textarea
+                    id="listaPagamentos"
+                    style="
+                        width:100%;
+                        height:220px;
+                        padding:15px;
+                        border-radius:15px;
+                        border:2px solid #FFB6D9;
+                        resize:none;
+                        font-size:16px;
+                    "
+                ></textarea>
+
+                <button
+                    class="concluir"
+                    onclick="salvarPagamentos()"
+                >
+                    SALVAR
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+const canvas = document.getElementById('rifaCanvas');
+const ctx = canvas.getContext('2d');
+
+const imagem = new Image();
+
+const imagemSalva =
+localStorage.getItem('imagemRifa');
+
+if(imagemSalva){
+
+    imagem.src = imagemSalva;
+
+}else{
+
+    imagem.src = 'Rifa.jpg';
+}
+
+imagem.onerror = function(){
+
+    alert('Arquivo "Rifa.jpg" não encontrado!');
+
+}
+
+const GRID = {
+    x: 66,
+    y: 585,
+    w: 612,
+    h: 625
+};
+
+const COLS = 20;
+const ROWS = 10;
+
+// CONFIGURAÇÕES DA CARTELA
+let configCartela = JSON.parse(
+    localStorage.getItem('configCartela')
+) || {
+
+    quantidade: 150,
+    colunas: 20,
+    linhas: 10,
+    inicioX: 79,
+    inicioY: 970,
+    espacoX: 75,
+    espacoY: 140,
+    fonte: 40,
+    cor: '#FF4F9D',          // números
+    corRaio: '#FF4F9D',      // vendidos
+    corNumeroRaio: '#FFFFFF',
+    raio: 32,
+    emojiVendido: '💖'
+};
+
+let tema = JSON.parse(
+    localStorage.getItem('tema')
+) || {
+
+    botoes: '#FF4F9D',
+
+    botaoAtual: '#B56AD9',
+
+    botoesAcao: '#FF4F9D',
+
+    fundo: '#FFF7FA',
+
+    cards: '#FFFFFF',
+
+    texto: '#6A2CA0'
+};
+
+// MODO AJUSTE
+let modoAjuste = JSON.parse(
+    localStorage.getItem('modoAjuste')
+) || false;
+
+let mostrarCores = JSON.parse(
+    localStorage.getItem('mostrarCores')
+) || false;
+
+let mostrarPagamentos = JSON.parse(
+    localStorage.getItem('mostrarPagamentos')
+) || false;
+
+let historicoCores = JSON.parse(
+    localStorage.getItem('historicoCores')
+) || [];
+
+let vendas = JSON.parse(
+    localStorage.getItem('vendas')
+) || [];
+
+let numerosMarcados = JSON.parse(
+    localStorage.getItem('numerosMarcados')
+) || [];
+let pagamentos = JSON.parse(
+    localStorage.getItem('pagamentos')
+) || [
+    'R$30',
+    'Fralda P',
+    'Fralda M',
+    'Fralda G',
+    'Fralda XG'
+];
+
+function desenhar(){
+
+    // GARANTE QUE A IMAGEM CARREGOU
+    if(!imagem.complete){
+
+        return;
+    }
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // DESENHA IMAGEM
+    ctx.drawImage(
+        imagem,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    // DESENHA NÚMEROS
+    desenharNumeros();
+
+    // MARCA VENDIDOS
+    numerosMarcados.forEach(numero => {
+
+        marcarNumero(numero);
+
+    });
+}
+
+function desenharNumeros(){
+
+    let numero = 1;
+
+    // POSIÇÃO REAL DA SUA GRADE
+    const inicioX = configCartela.inicioX;
+
+const inicioY = configCartela.inicioY;
+
+const espacoX = configCartela.espacoX;
+
+const espacoY = configCartela.espacoY;
+
+ctx.fillStyle = configCartela.cor;
+
+ctx.font =
+`bold ${configCartela.fonte}px Arial`;
+
+    ctx.textAlign = "center";
+
+    ctx.textBaseline = "middle";
+
+    for(     let linha = 0;     linha < configCartela.linhas;     linha++ ){
+
+        for(     let coluna = 0;     coluna < configCartela.colunas;     coluna++ ){
+
+            const x = inicioX + (coluna * espacoX);
+
+            const y = inicioY + (linha * espacoY);
+
+            ctx.fillText(numero, x, y);
+
+            numero++;
+            if(numero > configCartela.quantidade){
+            return;
+            }
+        }
+    }
+}
+
+function obterPosicao(numero){
+
+    numero = parseInt(numero);
+
+    // POSIÇÃO INICIAL DA GRADE
+    const inicioX = configCartela.inicioX;
+    const inicioY = configCartela.inicioY;
+    
+    // ESPAÇAMENTO ENTRE NÚMEROS
+    const espacoX = configCartela.espacoX;
+    const espacoY = configCartela.espacoY;
+
+    // CÁLCULO DA COLUNA
+    const coluna =
+    (numero - 1) % configCartela.colunas;
+        // CÁLCULO DA LINHA
+    const linha = Math.floor(
+        (numero - 1) /
+        configCartela.colunas
+    );
+    return {
+
+        x: inicioX + (coluna * espacoX),
+
+        y: inicioY + (linha * espacoY)
+
+    };
+}
+
+function marcarNumero(numero){
+
+    const pos = obterPosicao(numero);
+
+    ctx.font =
+    `${configCartela.raio * 1.4}px Arial`;
+
+    ctx.textAlign = "center";
+
+    ctx.textBaseline = "middle";
+
+    ctx.fillText(
+        configCartela.emojiVendido || '⭐',
+        pos.x,
+        pos.y
+    );
+}
+
+function concluirCompra(){
+
+    try{
+
+        let nome = document.getElementById('nome').value;
+
+        let contato = document.getElementById('contato').value;
+
+        let numeros = document.getElementById('numeros').value;
+
+        let pagamento = document.getElementById('pagamento').value;
+
+        if(nome == '' || contato == '' || numeros == ''){
+
+            alert('Preencha todos os campos');
+
+            return;
+        }
+
+        // VALIDAR WHATSAPP
+        const whatsappLimpo = contato.replace(/\D/g,'');
+
+        if(whatsappLimpo.length != 11){
+
+            alert(
+                'Digite um WhatsApp válido.\n\n' +
+                'Formato:\n(84) 99999-9999'
+            );
+
+            return;
+        }
+
+        let lista = numeros.split(',');
+
+        // VERIFICAR REPETIDOS
+        let repetidos = [];
+
+        lista.forEach(num => {
+
+            num = num.trim();
+
+            if(numerosMarcados.includes(num)){
+
+                repetidos.push(num);
+
+            }
+
+        });
+
+        if(repetidos.length > 0){
+
+            alert(
+                'Os seguintes números já foram escolhidos:\n\n' +
+                repetidos.join(', ')
+            );
+
+            return;
+        }
+
+        // MARCAR NÚMEROS
+        lista.forEach(num => {
+
+            numerosMarcados.push(num.trim());
+
+        });
+
+        // DATA
+        let data = new Date().toLocaleDateString('pt-BR');
+
+        // QUANTIDADE
+        let quantidade = lista.length;
+
+        // TOTAL
+        let total = '';
+
+        if(pagamento.includes('R$')){
+
+            const valor = parseFloat(
+                pagamento
+                .replace('R$','')
+                .replace(',','.')
+                .trim()
+            ) || 0;
+
+            total = 'R$ ' +
+            (quantidade * valor).toFixed(2);
+
+        }else{
+
+            total = quantidade + ' unidade(s)';
+        }
+
+        // SALVAR VENDA
+        vendas.push({
+
+            data,
+            nome,
+            contato,
+            numeros,
+            pagamento,
+            quantidade,
+            total
+
+        });
+
+        // STORAGE
+        salvarDados();
+
+        // TABELA
+        atualizarTabela();
+
+        // RIFA
+        desenhar();
+
+        // LIMPAR
+        document.getElementById('nome').value = '';
+
+        document.getElementById('contato').value = '';
+
+        document.getElementById('numeros').value = '';
+
+        alert('Venda registrada!');
+
+    }catch(erro){
+
+        alert(
+            'ERRO:\n\n' + erro.message
+        );
+
+    }
+}
+function atualizarTabela(){
+
+    const historico =
+    document.getElementById('historico');
+
+    historico.innerHTML = '';
+
+    // RESUMOS
+    let resumo = {};
+
+    resumo['Dinheiro'] = 0;
+
+    pagamentos.forEach(item => {
+
+        // IGNORA ITENS MONETÁRIOS
+        const numero = parseFloat(
+            item.replace(/[^\d,]/g,'')
+            .replace(',','.')
+        );
+
+        if(isNaN(numero)){
+
+            resumo[item] = 0;
+
+        }
+
+    });
+
+    vendas.forEach((venda, index) => {
+
+        // DINHEIRO
+        const valor = parseFloat(
+
+            venda.pagamento
+            .replace(/[^\d,]/g,'')
+            .replace(',','.')
+
+        );
+
+        if(!isNaN(valor)){
+
+            resumo['Dinheiro'] +=
+            venda.quantidade * valor;
+
+        }else{
+
+            if(resumo[venda.pagamento] == undefined){
+
+                resumo[venda.pagamento] = 0;
+
+            }
+
+            resumo[venda.pagamento] +=
+            venda.quantidade;
+        }
+
+        // TABELA
+        const tr = document.createElement('tr');
+
+        tr.innerHTML = `
+            <td>${venda.data}</td>
+            <td>${venda.nome}</td>
+            <td>${venda.numeros}</td>
+            <td>${venda.contato}</td>
+            <td>${venda.pagamento}</td>
+            <td>${venda.total}</td>
+            <td>
+
+                <button onclick="editarVenda(${index})">
+                    Editar
+                </button>
+
+                <button onclick="apagarVenda(${index})">
+                    Apagar
+                </button>
+
+            </td>
+        `;
+
+        historico.appendChild(tr);
+
+    });
+
+    // CARDS
+    const resumoCards =
+    document.getElementById('resumoCards');
+
+    resumoCards.innerHTML = '';
+
+    Object.keys(resumo).forEach(chave => {
+
+        const card =
+        document.createElement('div');
+
+        card.className = 'card';
+
+        let valor = resumo[chave];
+
+        // DINHEIRO
+        if(chave == 'Dinheiro'){
+
+            valor = 'R$ ' + valor.toFixed(2);
+
+        }
+
+        card.innerHTML = `
+            <h3>${chave}</h3>
+            <p>${valor}</p>
+        `;
+
+        resumoCards.appendChild(card);
+
+    });
+
+    atualizarSorteio();
+}
+
+function atualizarSorteio(){
+
+    const lista = document
+    .getElementById('listaSorteio');
+
+    lista.innerHTML = '';
+
+    let vendidos = [];
+
+    vendas.forEach(venda => {
+
+        let nums = venda.numeros.split(',');
+
+        nums.forEach(num => {
+
+            vendidos.push({
+
+                numero: parseInt(num.trim()),
+
+                comprador: venda.nome
+
+            });
+
+        });
+
+    });
+
+    // ORDEM DECRESCENTE
+    vendidos.sort((a,b) => a.numero - b.numero);
+
+    vendidos.forEach(item => {
+
+        let tr = document.createElement('tr');
+
+        tr.innerHTML = `
+        
+            <td>${item.numero}</td>
+
+            <td>${item.comprador}</td>
+        `;
+
+        lista.appendChild(tr);
+
+    });
+}
+function sortearNumero(){
+
+    let vendidos = [];
+
+    vendas.forEach(venda => {
+
+        let nums = venda.numeros.split(',');
+
+        nums.forEach(num => {
+
+            vendidos.push({
+
+                numero: parseInt(num.trim()),
+
+                comprador: venda.nome
+
+            });
+
+        });
+
+    });
+
+    if(vendidos.length == 0){
+
+        alert('Nenhum número vendido');
+
+        return;
+    }
+
+    const animacao = document
+    .getElementById('animacaoSorteio');
+
+    const resultado = document
+    .getElementById('resultadoSorteio');
+
+    resultado.innerHTML = '';
+
+    animacao.style.display = 'block';
+
+    let contador = 3;
+
+    animacao.innerHTML = contador;
+
+    let intervalo = setInterval(() => {
+
+        contador--;
+
+        if(contador > 0){
+
+            animacao.innerHTML = contador;
+
+        }else{
+
+            clearInterval(intervalo);
+
+            animacao.innerHTML = '🎉';
+
+            setTimeout(() => {
+
+                animacao.style.display = 'none';
+
+                let sorteado = vendidos[
+                    Math.floor(
+                        Math.random() * vendidos.length
+                    )
+                ];
+
+                resultado.innerHTML = `
+                
+                    Número Sorteado:
+                    <br><br>
+
+                    ${sorteado.numero}
+
+                    <br><br>
+
+                    ${sorteado.comprador}
+                `;
+
+            }, 800);
+        }
+
+    }, 1000);
+}
+function abrirAba(id){
+
+    // ESCONDER ABAS
+    document.querySelectorAll('.tab-content')
+    .forEach(el => {
+
+        el.classList.remove('active');
+
+    });
+
+    // REMOVER BOTÃO ATIVO
+    document.querySelectorAll('.tab-btn')
+    .forEach(el => {
+
+        el.classList.remove('active');
+
+    });
+
+    // MOSTRAR ABA
+    document
+    .getElementById(id)
+    .classList.add('active');
+
+    // ATIVAR BOTÃO CORRETO
+    const botoes =
+    document.querySelectorAll('.tab-btn');
+
+    if(id == 'rifa'){
+
+        botoes[0].classList.add('active');
+    }
+
+    if(id == 'vendas'){
+
+        botoes[1].classList.add('active');
+    }
+
+    if(id == 'sorteio'){
+
+        botoes[2].classList.add('active');
+    }
+
+    if(id == 'config'){
+
+        botoes[3].classList.add('active');
+    }
+    aplicarTema();
+}
+
+function editarVenda(index){
+
+    const venda = vendas[index];
+
+    document.getElementById('nome').value = venda.nome;
+
+    document.getElementById('contato').value = venda.contato;
+
+    document.getElementById('numeros').value = venda.numeros;
+
+    document.getElementById('pagamento').value = venda.pagamento;
+
+    // REMOVER NÚMEROS ANTIGOS
+    let lista = venda.numeros.split(',');
+
+    lista.forEach(num => {
+
+        numerosMarcados = numerosMarcados.filter(n => n != num.trim());
+
+    });
+
+    // REMOVE VENDA
+    vendas.splice(index, 1);
+    
+    atualizarTabela();
+    salvarDados();
+    desenhar();
+    abrirAba('rifa');
+}
+function apagarVenda(index){
+
+    let confirmar = confirm(
+        'Deseja apagar esta venda?'
+    );
+
+    if(!confirmar){
+
+        return;
+    }
+
+    const venda = vendas[index];
+
+    // REMOVE NÚMEROS DA RIFA
+    let lista = venda.numeros.split(',');
+
+    lista.forEach(num => {
+
+        numerosMarcados = numerosMarcados.filter(
+
+            n => n != num.trim()
+
+        );
+
+    });
+
+    // REMOVE VENDA
+    vendas.splice(index, 1);
+
+    // ATUALIZA
+    atualizarTabela();
+    salvarDados();
+    desenhar();
+}
+
+function baixarImagem(){
+
+    const link = document.createElement('a');
+
+    link.download = 'Rifa.jpg';
+
+    link.href = canvas.toDataURL();
+
+    link.click();
+}
+
+// SOMENTE NÚMEROS E VÍRGULA
+function formatarNumeros(input){
+
+    input.value = input.value
+    .replace(/[^0-9,]/g, '');
+
+    // remove vírgulas duplicadas
+    input.value = input.value
+    .replace(/,+/g, ',');
+
+    // remove vírgula no início
+    if(input.value.startsWith(',')){
+
+        input.value = input.value.substring(1);
+
+    }
+}
+
+// FORMATAR WHATSAPP
+function formatarWhatsApp(input){
+
+    let valor = input.value
+    .replace(/\D/g, '');
+
+    // LIMITA 11 DÍGITOS
+    valor = valor.substring(0, 11);
+
+    // FORMATA
+    if(valor.length > 0){
+
+        valor = '(' + valor;
+
+    }
+
+    if(valor.length > 3){
+
+        valor = valor.slice(0,3) + ') ' +
+        valor.slice(3);
+
+    }
+
+    if(valor.length > 10){
+
+        valor = valor.slice(0,10) + '-' +
+        valor.slice(10);
+
+    }
+
+    input.value = valor;
+}
+function salvarDados(){
+
+    localStorage.setItem(
+        'vendas',
+        JSON.stringify(vendas)
+    );
+
+    localStorage.setItem(
+        'numerosMarcados',
+        JSON.stringify(numerosMarcados)
+    );
+}
+// CARREGAR DADOS SALVOS
+
+function carregarPagamentos(){
+
+    const select =
+    document.getElementById('pagamento');
+
+    // LIMPA
+    select.innerHTML = '';
+
+    // ADICIONA ITENS
+    pagamentos.forEach(item => {
+
+        const option =
+        document.createElement('option');
+
+        option.value = item;
+
+        option.innerText = item;
+
+        select.appendChild(option);
+
+    });
+
+    // ATUALIZA TEXTAREA
+    document.getElementById(
+        'listaPagamentos'
+    ).value = pagamentos.join('\n');
+
+}
+function salvarPagamentos(){
+
+    const texto =
+    document.getElementById(
+        'listaPagamentos'
+    ).value;
+
+    pagamentos = texto
+    .split('\n')
+    .map(p => p.trim())
+    .filter(p => p != '');
+
+    // SALVA
+    localStorage.setItem(
+        'pagamentos',
+        JSON.stringify(pagamentos)
+    );
+
+    // ATUALIZA SELECT
+    carregarPagamentos();
+
+    // ATUALIZA VENDAS/RESUMOS
+    atualizarTabela();
+
+    alert('Pagamentos atualizados!');
+}
+function popup(texto){
+
+    alert(texto);
+}
+function limparVendas(){
+
+    const confirmar = confirm(
+
+        '⚠️ ATENÇÃO\n\n' +
+
+        'Deseja realmente apagar TODAS as vendas?\n\n' +
+
+        'Todos os números serão liberados.\n\n' +
+
+        'Essa ação não poderá ser desfeita.'
+
+    );
+
+    if(!confirmar){
+
+        return;
+
+    }
+
+    // LIMPA DADOS
+    vendas = [];
+
+    numerosMarcados = [];
+
+    // LIMPA STORAGE
+    localStorage.removeItem('vendas');
+
+    localStorage.removeItem('numerosMarcados');
+
+    // ATUALIZA SISTEMA
+    atualizarTabela();
+
+    desenhar();
+
+    alert('Todas as vendas foram apagadas.');
+
+}
+function toggleCores(input){
+
+    mostrarCores = input.checked;
+
+    localStorage.setItem(
+        'mostrarCores',
+        JSON.stringify(mostrarCores)
+    );
+
+    atualizarPainelCores();
+}
+
+function togglePagamentos(input){
+
+    mostrarPagamentos = input.checked;
+
+    localStorage.setItem(
+        'mostrarPagamentos',
+        JSON.stringify(mostrarPagamentos)
+    );
+
+    atualizarPainelPagamentos();
+}
+
+function atualizarPainelCores(){
+
+    const painel =
+    document.getElementById('painelCores');
+
+    painel.style.display =
+    mostrarCores ? 'block' : 'none';
+
+    document.getElementById('toggleCores')
+    .checked = mostrarCores;
+
+    document.getElementById('ajCor')
+    .value = configCartela.cor;
+
+    atualizarHistoricoCores();
+    carregarTemaInputs();
+}
+
+function atualizarPainelPagamentos(){
+
+    const painel =
+    document.getElementById('painelPagamentos');
+
+    painel.style.display =
+    mostrarPagamentos ? 'block' : 'none';
+
+    document.getElementById('togglePagamentos')
+    .checked = mostrarPagamentos;
+}
+
+function alterarCorTempoReal(chave, valor){
+    configCartela[chave] = valor;
+    salvarHistoricoCor(valor);
+    localStorage.setItem(
+        'configCartela',
+        JSON.stringify(configCartela)
+    );
+    desenhar();
+}
+
+function salvarHistoricoCor(cor){
+
+    if(!cor){
+        return;
+    }
+
+    // REMOVE DUPLICADA
+    historicoCores =
+    historicoCores.filter(c => c !== cor);
+
+    // ADICIONA NO INÍCIO
+    historicoCores.unshift(cor);
+
+    // LIMITE 3
+    historicoCores =
+    historicoCores.slice(0, 3);
+
+    // SALVA
+    localStorage.setItem(
+        'historicoCores',
+        JSON.stringify(historicoCores)
+    );
+
+    console.log(
+        'Histórico salvo:',
+        historicoCores
+    );
+
+    atualizarHistoricoCores();
+}
+
+function atualizarHistoricoCores(){
+
+    const area =
+    document.getElementById('historicoCores');
+
+    if(!area){
+        return;
+    }
+
+    area.innerHTML = '';
+
+    historicoCores
+.filter(cor => cor && cor !== '#000000')
+.forEach(cor => {
+
+        const item =
+        document.createElement('div');
+
+        item.style.width = '40px';
+
+        item.style.height = '40px';
+
+        item.style.borderRadius = '12px';
+
+        item.style.cursor = 'pointer';
+
+        item.style.border =
+        '2px solid #ffffff';
+
+        item.style.boxShadow =
+        '0 0 6px rgba(0,0,0,0.25)';
+
+        item.style.background = cor;
+
+        item.title = cor;
+
+        item.onclick = () => {
+
+            configCartela.cor = cor;
+
+            const seletor =
+            document.getElementById('ajCor');
+
+            if(seletor){
+
+                seletor.value = cor;
+
+            }
+
+            desenhar();
+        };
+
+        area.appendChild(item);
+
+    });
+
+    console.log(
+        'Histórico renderizado:',
+        historicoCores
+    );
+}
+
+function alterarTemaTempoReal(){
+
+    tema.botoes =
+    document.getElementById('corBotoes').value;
+
+    tema.botaoAtual =
+    document.getElementById('corBotaoAtual').value;
+
+    tema.botoesAcao =
+    document.getElementById('corBotoesAcao').value;
+
+    tema.fundo =
+    document.getElementById('corFundo').value;
+
+    tema.cards =
+    document.getElementById('corCards').value;
+
+    tema.texto =
+    document.getElementById('corTexto').value;
+
+    // SALVAR HISTÓRICO
+    salvarHistoricoCor(tema.botoes);
+
+    salvarHistoricoCor(tema.botaoAtual);
+
+    salvarHistoricoCor(tema.botoesAcao);
+
+    salvarHistoricoCor(tema.fundo);
+
+    salvarHistoricoCor(tema.cards);
+
+    salvarHistoricoCor(tema.texto);
+
+    aplicarTema();
+
+    localStorage.setItem(
+        'tema',
+        JSON.stringify(tema)
+    );
+}
+
+function aplicarTema(){
+
+    // FUNDO
+    document.body.style.background =
+    tema.fundo;
+
+    document.body.style.color =
+    tema.texto;
+
+    // BOTÕES DAS ABAS
+    document.querySelectorAll('.tab-btn')
+    .forEach(btn => {
+
+        btn.style.background =
+        tema.botoes;
+
+    });
+
+    // BOTÃO ATIVO
+    document.querySelectorAll('.tab-btn.active')
+    .forEach(btn => {
+
+        btn.style.background =
+        tema.botaoAtual;
+
+    });
+
+    // BOTÕES DE AÇÃO
+    document.querySelectorAll('.concluir')
+    .forEach(btn => {
+
+        btn.style.background =
+        tema.botoesAcao;
+
+    });
+
+    // CARDS
+    document.querySelectorAll(
+        '.formulario, .card, table, .canvas-container'
+    ).forEach(el => {
+
+        el.style.background =
+        tema.cards;
+
+    });
+
+    // TEXTOS
+    document.querySelectorAll(
+        'h1,h2,h3,label,p,th,td'
+    ).forEach(el => {
+
+        el.style.color =
+        tema.texto;
+
+    });
+
+    // TABELAS
+    document.querySelectorAll('th')
+    .forEach(th => {
+
+        th.style.background =
+        tema.botoes;
+
+        th.style.color = '#fff';
+
+    });
+
+    // INPUTS
+    document.querySelectorAll(
+        'input, select, textarea'
+    ).forEach(input => {
+
+        input.style.borderColor =
+        tema.botoes;
+
+    });
+}
+
+function carregarTemaInputs(){
+
+    document.getElementById('corBotoes')
+    .value = tema.botoes;
+
+    document.getElementById('corBotaoAtual')
+    .value = tema.botaoAtual;
+
+    document.getElementById('corBotoesAcao')
+    .value = tema.botoesAcao;
+
+    document.getElementById('corFundo')
+    .value = tema.fundo;
+
+    document.getElementById('corCards')
+    .value = tema.cards;
+
+    document.getElementById('corTexto')
+    .value = tema.texto;
+    
+    document.getElementById('corRaio')
+    .value = configCartela.corRaio;
+    
+    document.getElementById('corNumeroRaio')
+    .value = configCartela.corNumeroRaio;
+}
+function carregarImagemRifa(event){
+
+    const arquivo =
+    event.target.files[0];
+
+    if(!arquivo){
+        return;
+    }
+
+    const leitor =
+    new FileReader();
+
+    leitor.onload = function(e){
+
+        const imagemBase64 =
+        e.target.result;
+
+        // SALVA NO LOCALSTORAGE
+        localStorage.setItem(
+            'imagemRifa',
+            imagemBase64
+        );
+
+        // ALTERA IMAGEM
+        imagem.src = imagemBase64;
+
+        imagem.onload = function(){
+
+            canvas.width = imagem.width;
+
+            canvas.height = imagem.height;
+
+            desenhar();
+        };
+
+        atualizarStatusImagem(
+            arquivo.name
+        );
+    };
+
+    leitor.readAsDataURL(arquivo);
+}
+function atualizarStatusImagem(nomeArquivo){
+
+    const status =
+    document.getElementById(
+        'statusImagemRifa'
+    );
+
+    if(!status){
+        return;
+    }
+
+    status.innerHTML = `
+        ✅ Imagem Rifa  carregada
+        <br>
+        ${nomeArquivo}
+    `;
+
+    status.style.color = 'green';
+}
+function carregarStatusImagemSalva(){
+
+    const imagemSalva =
+    localStorage.getItem('imagemRifa');
+
+    if(!imagemSalva){
+        return;
+    }
+
+    atualizarStatusImagem(
+        'Salvo na memória'
+    );
+}
+
+async function carregarArquivosIniciais(){
+
+    // EVITA BAIXAR NOVAMENTE
+    const jaInicializado =
+    localStorage.getItem('inicializado');
+
+    if(jaInicializado){
+        return;
+    }
+
+    try{
+
+        // LINKS RAW
+        const urlConfig =
+        'https://raw.githubusercontent.com/john-archs/Rifa-Daniela/main/config.json';
+
+        const urlImagem =
+        'https://raw.githubusercontent.com/john-archs/Rifa-Daniela/main/Rifa.jpg';
+
+        const urlQr =
+        'https://raw.githubusercontent.com/john-archs/Rifa-Daniela/main/qrcode.png';
+
+        // CONFIG JSON
+        const resposta =
+        await fetch(urlConfig);
+
+        const dados =
+        await resposta.json();
+
+        // VENDAS
+        if(dados.vendas){
+
+            localStorage.setItem(
+                'vendas',
+                JSON.stringify(dados.vendas)
+            );
+        }
+
+        // NÚMEROS
+        if(dados.numerosMarcados){
+
+            localStorage.setItem(
+                'numerosMarcados',
+                JSON.stringify(dados.numerosMarcados)
+            );
+        }
+
+        // PAGAMENTOS
+        if(dados.pagamentos){
+
+            localStorage.setItem(
+                'pagamentos',
+                JSON.stringify(dados.pagamentos)
+            );
+        }
+
+        // CONFIG CARTELA
+        if(dados.configCartela){
+
+            localStorage.setItem(
+                'configCartela',
+                JSON.stringify(dados.configCartela)
+            );
+        }
+
+        // TEMA
+        if(dados.tema){
+
+            localStorage.setItem(
+                'tema',
+                JSON.stringify(dados.tema)
+            );
+        }
+
+        // HISTÓRICO CORES
+        if(dados.historicoCores){
+
+            localStorage.setItem(
+                'historicoCores',
+                JSON.stringify(dados.historicoCores)
+            );
+        }
+
+        // IMAGEM
+        localStorage.setItem(
+            'imagemRifa',
+            urlImagem
+        );
+        imagem.src = urlImagem;
+
+        // QR PIX
+        localStorage.setItem(
+            'qrPix',
+            urlQr
+        );
+
+        // ATUALIZA VARIÁVEIS EM MEMÓRIA
+        vendas =
+        dados.vendas || [];
+        
+        numerosMarcados =
+        dados.numerosMarcados || [];
+        
+        pagamentos =
+        dados.pagamentos || pagamentos;
+        
+        configCartela =
+        dados.configCartela || configCartela;
+        
+        historicoCores =
+        dados.historicoCores || [];
+        
+        tema =
+        dados.tema || tema;
+        
+        if(dados.qrPix){
+        
+            qrPix = dados.qrPix;
+        }
+
+        // MARCA COMO INICIALIZADO
+        localStorage.setItem(
+            'inicializado',
+            'sim'
+        );
+
+        console.log(
+            'Arquivos iniciais carregados!'
+        );
+
+    }catch(erro){
+
+        console.log(
+            'Erro ao carregar arquivos iniciais:',
+            erro
+        );
+    }
+}
+
+window.onload = async function(){
+
+    await carregarArquivosIniciais();
+    
+    canvas.width = imagem.width;
+    canvas.height = imagem.height;
+
+    carregarPagamentos();
+    atualizarTabela();
+    atualizarPainelAjuste();
+    atualizarPainelCores();
+    atualizarPainelPagamentos();
+    atualizarHistoricoCores();
+    carregarStatusImagemSalva();
+    carregarStatusQrPix();
+    aplicarTema();
+    desenhar();
+};
+
+function toggleModoAjuste(input){
+
+    modoAjuste = input.checked;
+
+    localStorage.setItem(
+        'modoAjuste',
+        JSON.stringify(modoAjuste)
+    );
+
+    atualizarPainelAjuste();
+}
+
+function atualizarPainelAjuste(){
+
+    const painel =
+    document.getElementById('painelAjuste');
+
+    if(!painel){
+        return;
+    }
+
+    painel.style.display =
+    modoAjuste ? 'block' : 'none';
+
+    document.getElementById('toggleAjuste')
+    .checked = modoAjuste;
+
+    // PREENCHER CAMPOS
+    document.getElementById('ajQuantidade')
+    .value = configCartela.quantidade;
+
+    document.getElementById('ajColunas')
+    .value = configCartela.colunas;
+    
+    document.getElementById('ajLinhas')
+    .value = configCartela.linhas;
+
+    document.getElementById('ajX')
+    .value = configCartela.inicioX;
+
+    document.getElementById('ajY')
+    .value = configCartela.inicioY;
+
+    document.getElementById('ajEspX')
+    .value = configCartela.espacoX;
+
+    document.getElementById('ajEspY')
+    .value = configCartela.espacoY;
+
+    document.getElementById('ajFonte')
+    .value = configCartela.fonte;
+
+    document.getElementById('ajRaio')
+    .value = configCartela.raio;
+    
+    document.getElementById('ajEmoji')
+    .value = configCartela.emojiVendido;
+
+    document.getElementById('ajCor')
+    .value = configCartela.cor;
+    
+    document.getElementById('corRaio')
+    .value = configCartela.corRaio;
+    
+    document.getElementById('corNumeroRaio')
+    .value = configCartela.corNumeroRaio;
+}
+
+function atualizarAjusteTempoReal(){
+
+    configCartela.quantidade =
+    parseInt(
+        document.getElementById('ajQuantidade').value
+    );
+    
+    configCartela.colunas =
+    parseInt(
+        document.getElementById('ajColunas').value
+    );
+    
+    configCartela.linhas =
+    parseInt(
+        document.getElementById('ajLinhas').value
+    );
+    
+    configCartela.inicioX =
+    parseInt(
+        document.getElementById('ajX').value
+    );
+
+    configCartela.inicioY =
+    parseInt(
+        document.getElementById('ajY').value
+    );
+
+    configCartela.espacoX =
+    parseInt(
+        document.getElementById('ajEspX').value
+    );
+
+    configCartela.espacoY =
+    parseInt(
+        document.getElementById('ajEspY').value
+    );
+
+    configCartela.fonte =
+    parseInt(
+        document.getElementById('ajFonte').value
+    );
+
+    configCartela.raio =
+    parseInt(
+        document.getElementById('ajRaio').value
+    );
+    
+    configCartela.emojiVendido =
+    document.getElementById('ajEmoji').value;
+
+    configCartela.cor =
+    document.getElementById('ajCor').value;
+
+    desenhar();
+}
+
+function salvarAjustesCartela(){
+
+    localStorage.setItem(
+        'configCartela',
+        JSON.stringify(configCartela)
+    );
+
+    alert('Ajustes salvos!');
+}
+function baixarArquivo(nome, conteudo, tipo){
+
+    const blob = new Blob(
+        [conteudo],
+        {
+            type: tipo
+        }
+    );
+
+    const url =
+    URL.createObjectURL(blob);
+
+    const a =
+    document.createElement('a');
+
+    a.href = url;
+
+    a.download = nome;
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    document.body.removeChild(a);
+
+    setTimeout(() => {
+
+        URL.revokeObjectURL(url);
+
+    }, 1000);
+}
+
+function exportarConfiguracoes(){
+
+    const dados = {
+          vendas,
+          numerosMarcados,
+          pagamentos,
+          configCartela,
+          historicoCores,
+          tema,
+          imagemRifa:
+          localStorage.getItem('imagemRifa'),
+          qrPix:
+          localStorage.getItem('qrPix')
+      };
+
+    const json = JSON.stringify(
+        dados,
+        null,
+        2
+    );
+
+    baixarArquivo(
+        'backup-rifa.json',
+        json,
+        'application/json'
+    );
+
+    alert(
+        'Backup exportado com sucesso!'
+    );
+}
+
+function importarConfiguracoes(event){
+
+    const arquivo =
+    event.target.files[0];
+
+    if(!arquivo){
+        return;
+    }
+
+    const leitor =
+    new FileReader();
+
+    leitor.onload = function(e){
+
+        try{
+
+            const dados =
+            JSON.parse(e.target.result);
+
+            vendas =
+            dados.vendas || [];
+
+            numerosMarcados =
+            dados.numerosMarcados || [];
+
+            pagamentos =
+            dados.pagamentos || pagamentos;
+
+            configCartela =
+            dados.configCartela || configCartela;
+
+            historicoCores =
+            dados.historicoCores || [];
+
+            tema =
+            dados.tema || tema;
+
+            // IMAGEM
+            if(dados.imagemRifa){
+
+                localStorage.setItem(
+                    'imagemRifa',
+                    dados.imagemRifa
+                );
+
+                imagem.src =
+                dados.imagemRifa;
+            }
+            
+            // QR PIX
+            if(dados.qrPix){
+            
+                localStorage.setItem(
+                    'qrPix',
+                    dados.qrPix
+                );
+            
+                qrPix = dados.qrPix;
+            }
+
+            // SALVA
+            localStorage.setItem(
+                'vendas',
+                JSON.stringify(vendas)
+            );
+
+            localStorage.setItem(
+                'numerosMarcados',
+                JSON.stringify(numerosMarcados)
+            );
+
+            localStorage.setItem(
+                'pagamentos',
+                JSON.stringify(pagamentos)
+            );
+
+            localStorage.setItem(
+                'configCartela',
+                JSON.stringify(configCartela)
+            );
+
+            localStorage.setItem(
+                'historicoCores',
+                JSON.stringify(historicoCores)
+            );
+            carregarPagamentos();
+            atualizarTabela();
+            atualizarPainelAjuste();
+            atualizarHistoricoCores();
+            desenhar();
+
+            alert(
+                'Backup restaurado!'
+            );
+
+            location.reload();
+
+        }catch(erro){
+
+            alert(
+                'Arquivo inválido.'
+            );
+        }
+    };
+
+    leitor.readAsText(arquivo);
+}
+// QR CODE PIX
+let qrPix =
+localStorage.getItem('qrPix') || '';
+
+function carregarQrPix(event){
+
+    const arquivo =
+    event.target.files[0];
+
+    if(!arquivo){
+        return;
+    }
+
+    const leitor =
+    new FileReader();
+
+    leitor.onload = function(e){
+
+        qrPix = e.target.result;
+
+        localStorage.setItem(
+            'qrPix',
+            qrPix
+        );
+
+        atualizarStatusQrPix(
+            arquivo.name
+        );
+    };
+
+    leitor.readAsDataURL(arquivo);
+}
+
+function atualizarStatusQrPix(nome){
+
+    const status =
+    document.getElementById(
+        'statusQrPix'
+    );
+
+    status.innerHTML = `
+        ✅ QR Code carregado:
+        <br>
+        ${nome}
+    `;
+
+    status.style.color = 'green';
+}
+
+function carregarStatusQrPix(){
+
+    if(!qrPix){
+        return;
+    }
+
+    atualizarStatusQrPix(
+        'Salvo na memória'
+    );
+}
+
+function abrirPix(){
+
+    const popup =
+    document.getElementById(
+        'popupPix'
+    );
+
+    const conteudo =
+    document.getElementById(
+        'conteudoPix'
+    );
+
+    // COM QR CODE
+    if(qrPix){
+
+        conteudo.innerHTML = `
+
+            <img
+                src="${qrPix}"
+                class="qr-pix"
+            >
+
+            <div class="info-pix">
+                Chave Pix:
+                <br>
+                105.305.904-33
+            </div>
+
+            <div class="info-pix">
+                Nome:
+                <br>
+                Andreia Bezerra de Alcantara
+            </div>
+
+            <div class="info-pix">
+                Banco:
+                <br>
+                Nubank
+            </div>
+
+            <button
+                class="btn-copiar"
+                onclick="copiarPix()"
+            >
+                COPIAR CHAVE PIX
+            </button>
+        `;
+
+    }else{
+
+        // SEM QR CODE
+        conteudo.innerHTML = `
+
+            <div class="info-pix">
+                Chave Pix:
+                <br>
+                105.305.904-33
+            </div>
+
+            <div class="info-pix">
+                Nome:
+                <br>
+                Andreia Bezerra de Alcantara
+            </div>
+
+            <div class="info-pix">
+                Banco:
+                <br>
+                Nubank
+            </div>
+
+            <button
+                class="btn-copiar"
+                onclick="copiarPix()"
+            >
+                COPIAR CHAVE PIX
+            </button>
+        `;
+    }
+
+    popup.style.display = 'flex';
+}
+
+function fecharPix(){
+
+    document.getElementById(
+        'popupPix'
+    ).style.display = 'none';
+}
+
+function copiarPix(){
+
+    navigator.clipboard.writeText(
+        '105.305.904-33'
+    );
+
+    alert(
+        'Chave Pix copiada!'
+    );
+}
+</script>
+    <!-- POPUP PIX -->
+    <div id="popupPix" class="popup-pix">
+    
+        <div class="popup-conteudo">
+    
+            <span
+                class="fechar-popup"
+                onclick="fecharPix()"
+            >
+                ✕
+            </span>
+            <h2>Pagamento via Pix</h2>
+            <div id="conteudoPix"></div>
+        </div>
+    </div>
+</body>
+      </html>
